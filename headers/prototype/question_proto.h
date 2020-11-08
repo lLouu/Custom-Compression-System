@@ -10,7 +10,22 @@ int count(FILE* target);
 occurence* new_occ();
 void add_to_occ(char c, occurence** list_ptr);
 occurence* read_occ(FILE* target);
-void sort_occ(occurence** list);
 void free_occ(occurence* list);
+
+void sort_node(node_list** list);
+
+
+huffman* create_tree();
+node_list* create_list();
+
+
+node_list* occ_to_node(occurence* occ);
+void sort_node(node_list** list);
+void compute_tree(node_list** l);
+huffman* occ_to_tree(occurence* occ);
+
+
+void free_tree(huffman* tree);
+void display(huffman* tree);
 
 #endif

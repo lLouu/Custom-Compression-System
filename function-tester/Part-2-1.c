@@ -37,14 +37,6 @@ int main()
     else
         {exit_code = 6;}
     
-    sort_occ(&list);
-
-    if(list->data != 's')
-    {
-        exit_code += 10;
-    }
-    
-    
     free_occ(list);                    
 
 

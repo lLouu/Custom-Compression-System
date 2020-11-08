@@ -72,19 +72,67 @@ occurence* read_occ(FILE* target)
     
     return ret;
 }
-void sort_occ(occurence** list) 
+void free_occ(occurence* list)
+{
+    if(list != NULL)
+    {
+        free_occ(list->next);
+        free(list);
+    }
+}
+
+//2.2.D
+huffman* create_tree()
+{
+    huffman* ret = (huffman*)malloc(sizeof(huffman));
+
+    ret->data = 0;
+    ret->size = 0;
+    ret->right = NULL;
+    ret->left = NULL;
+
+    return ret;
+}
+node_list* create_list()
+{
+    node_list* ret = (node_list*)malloc(sizeof(node_list));
+
+    ret->node = create_tree();
+    ret->next = NULL;
+
+    return ret;
+}
+
+
+node_list* occ_to_node(occurence* occ)
+{
+    if(occ != NULL)
+    {
+        node_list *ret = create_list();
+        ret->node = create_tree();
+        ret->node->data = occ->data;
+        ret->node->size = occ->occ;
+        ret->next = occ_to_node(occ->next);
+
+        free(occ);
+
+        return ret;
+    }
+    return NULL;
+}
+void sort_node(node_list** list) 
 {
     if(*list != NULL)
     {
         int cond = 1;
-        occurence **s_buffer, *d_buffer;
+        node_list **s_buffer, *d_buffer;
         while(cond)
         {
             cond = 0;
             s_buffer = list;
             while((*s_buffer)->next != NULL)
             {
-                if((*s_buffer)->occ < (*s_buffer)->next->occ)
+                if((*s_buffer)->node->size > (*s_buffer)->next->node->size)
                 {
                     d_buffer = *s_buffer;
                     *s_buffer = (*s_buffer)->next;
@@ -102,11 +150,62 @@ void sort_occ(occurence** list)
         }
     }
 }
-void free_occ(occurence* list)
+void compute_tree(node_list** l)
 {
-    if(list != NULL)
+    if(*l != NULL && (*l)->next != NULL)
     {
-        free_occ(list->next);
-        free(list);
+        node_list* add = create_list();
+        add->node->left = (*l)->node;
+        add->node->right = (*l)->next->node;
+        add->node->size = add->node->left->size + add->node->right->size;
+        add->next = (*l)->next->next;
+        sort_node(&add);
+
+        free((*l)->next);
+        free(*l);
+        *l = add;
+        compute_tree(l);
+    }
+}
+huffman* occ_to_tree(occurence* occ)
+{
+    node_list* l = occ_to_node(occ);
+    sort_node(&l);
+
+    compute_tree(&l);
+    huffman* ret = l->node;
+    free(l);
+
+    return ret;
+}
+
+
+void free_tree(huffman* tree)
+{
+    if(tree != NULL)
+    {
+        free_tree(tree->right);
+        free_tree(tree->left);
+        free(tree);
+    }
+}
+
+void display(huffman* tree)
+{
+    if(tree != NULL)
+    {
+        if(tree->data != 0)
+        {
+            printf("%c : %d", tree->data, tree->size);
+        }
+        else
+        {
+            printf("[{");
+            display(tree->left);
+            printf("},{");
+            display(tree->right);
+            printf("}] : %d", tree->size);
+        }
+        
     }
 }
