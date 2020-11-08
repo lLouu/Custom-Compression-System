@@ -241,7 +241,7 @@ void register_dico(huffman* tree, FILE* output_file, char* data)
     }
 }
 
-//2.4.F
+//2.4.F-G
 char_SLL* create_char()
 {
     char_SLL* ret = (char_SLL*)malloc(sizeof(char_SLL));
@@ -341,3 +341,60 @@ void free_dico(dico* d)
         free(d);
     }
 }
+
+//2.5.H
+void recover_tree(dico* d, huffman* tree)
+{
+    if(d != NULL && tree != NULL)
+    {
+        char_SLL* buffer = d->code;
+        huffman* scan = tree;
+        while (buffer != NULL)
+        {
+            if(buffer->data == '0')
+            {
+                if(scan->right == NULL)
+                {
+                    scan->right = create_tree();
+                }
+                scan = scan->right;
+            }
+            else
+            {
+                if(scan->left == NULL)
+                {
+                    scan->left = create_tree();
+                }
+                scan = scan->left;
+            }
+            
+            buffer = buffer->next;
+        }
+        
+        scan->data = d->data;
+        recover_tree(d->next, tree);
+    }
+}
+void decrypt(FILE* in, FILE* out, huffman* tree)
+{
+    huffman* scan = tree;
+    char c = fgetc(in);
+    while(c != EOF)
+    {
+        if(c == '0')
+        {
+            scan = scan->right;
+        }
+        else
+        {
+            scan = scan->left;
+        }
+        if(scan->data != 0)
+        {
+            fputc(scan->data, out);
+            scan = tree;
+        }
+        c = fgetc(in);
+    }
+}
+

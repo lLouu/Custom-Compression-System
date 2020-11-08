@@ -43,4 +43,7 @@ void free_dico(dico* d);
 
 void compact_bin_file(char* path);
 
+void recover_tree(dico* d, huffman* tree);
+void decrypt(FILE* in, FILE* out, huffman* tree);
+
 #endif
