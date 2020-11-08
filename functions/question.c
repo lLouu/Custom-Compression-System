@@ -209,3 +209,34 @@ void display(huffman* tree)
         
     }
 }
+
+// 2.3.E
+void create_dico(huffman* tree, FILE* output_file, char* data)
+{
+    if(tree != NULL)
+    {
+        if(tree->data == 0)
+        {
+            int size = strlen(data);
+            char* new_data = (char*)malloc((size+2)*sizeof(char));
+            for(int i = 0; i < size; i++)
+            {
+                new_data[i] = data[i];
+            }
+            new_data[size+1] = '\0';
+            new_data[size] = '0';
+            create_dico(tree->right, output_file, new_data);
+            new_data[size] = '1';
+            create_dico(tree->left, output_file, new_data);
+            free(new_data);
+        }
+        else
+        {
+            fputc(tree->data, output_file);
+            for(size_t i = 0; i<strlen(data); i++)
+            {
+                fputc(data[i], output_file);
+            }
+        }
+    }
+}

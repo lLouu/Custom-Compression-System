@@ -28,4 +28,7 @@ huffman* occ_to_tree(occurence* occ);
 void free_tree(huffman* tree);
 void display(huffman* tree);
 
+
+void create_dico(huffman* tree, FILE* output_file, char* data);
+
 #endif
