@@ -29,6 +29,18 @@ void free_tree(huffman* tree);
 void display(huffman* tree);
 
 
-void create_dico(huffman* tree, FILE* output_file, char* data);
+void register_dico(huffman* tree, FILE* output_file, char* data);
+
+char_SLL* create_char();
+dico* create_dico();
+
+dico* read_dico(FILE* d);
+void put(char c, FILE* out, dico* d);
+void encrypt(FILE* in, FILE* out, dico* d);
+
+void free_char(char_SLL* c);
+void free_dico(dico* d);
+
+void compact_bin_file(char* path);
 
 #endif

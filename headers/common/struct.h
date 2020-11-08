@@ -22,6 +22,19 @@ typedef struct node_list
     struct node_list* next;
 }node_list;
 
+typedef struct char_SLL
+{
+    char data;
+    struct char_SLL* next;
+}char_SLL;
+
+typedef struct dico
+{
+    char data;
+    char_SLL* code;
+    struct dico* next;
+}dico;
+
 #else
 #error "repeted call of struct.h"
 #endif

@@ -13,7 +13,7 @@ int main()
     char buffer[1] = "\0";
 
     FILE* d = fopen(DICO, "w");
-    create_dico(tree, d, buffer);
+    register_dico(tree, d, buffer);
     fclose(d);
 
     free_tree(tree);

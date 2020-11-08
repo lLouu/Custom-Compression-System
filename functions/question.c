@@ -211,7 +211,7 @@ void display(huffman* tree)
 }
 
 // 2.3.E
-void create_dico(huffman* tree, FILE* output_file, char* data)
+void register_dico(huffman* tree, FILE* output_file, char* data)
 {
     if(tree != NULL)
     {
@@ -225,18 +225,119 @@ void create_dico(huffman* tree, FILE* output_file, char* data)
             }
             new_data[size+1] = '\0';
             new_data[size] = '0';
-            create_dico(tree->right, output_file, new_data);
+            register_dico(tree->right, output_file, new_data);
             new_data[size] = '1';
-            create_dico(tree->left, output_file, new_data);
+            register_dico(tree->left, output_file, new_data);
             free(new_data);
         }
         else
         {
-            fputc(tree->data, output_file);
             for(size_t i = 0; i<strlen(data); i++)
             {
                 fputc(data[i], output_file);
             }
+            fputc(tree->data, output_file);
         }
+    }
+}
+
+//2.4.F
+char_SLL* create_char()
+{
+    char_SLL* ret = (char_SLL*)malloc(sizeof(char_SLL));
+
+    ret->data = 0;
+    ret->next = NULL;
+
+    return ret;
+}
+dico* create_dico()
+{
+    dico* ret = (dico*)malloc(sizeof(dico));
+
+    ret->code = create_char();
+    ret->data = 0;
+    ret->next = NULL;
+
+    return ret;
+}
+
+dico* read_dico(FILE* d)
+{
+    char c = fgetc(d);
+    if(c != EOF)
+    {
+        dico* reed = create_dico();
+        char_SLL *code = NULL, **buffer = (char_SLL**)malloc(sizeof(char_SLL*));
+
+        while(c == '0' || c == '1')
+        {
+            *buffer = create_char();
+            (*buffer)->data = c;
+            if(code == NULL)
+            {
+                code = *buffer;
+                buffer = &code->next;
+            }
+            else
+            {
+                buffer = &(*buffer)->next;
+            }
+            c = fgetc(d);
+        }
+
+        reed->code = code;
+        reed->data = c;
+        reed->next = read_dico(d);
+
+        free(buffer);
+        return reed;
+    }
+    return NULL;
+}
+void put(char c, FILE* out, dico* d)
+{
+    if(d != NULL)
+    {
+        if(d->data == c)
+        {
+            char_SLL* buffer = d->code;
+            while(buffer != NULL)
+            {
+                fputc(buffer->data, out);
+                buffer = buffer->next;
+            }
+        }
+        else
+        {
+            put(c, out, d->next);
+        }
+    }
+}
+void encrypt(FILE* in, FILE* out, dico* d)
+{
+    char c = fgetc(in);
+    if(c != EOF)
+    {
+        put(c, out, d);
+        encrypt(in, out, d);
+    }
+}
+
+void free_char(char_SLL* c)
+{
+    if(c != NULL)
+    {
+        free_char(c->next);
+        free(c);
+    }
+}
+void free_dico(dico* d)
+{
+    if(d != NULL)
+    {
+        free_dico(d->next);
+        free_char(d->code);
+        free(d);
     }
 }
