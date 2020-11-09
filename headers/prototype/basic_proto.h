@@ -1,8 +1,8 @@
 #ifndef B_PROTO
 #define B_PROTO
 
-#include "common/header.h"
-#include "common/struct.h"
+#include "../common/header.h"
+#include "../common/struct.h"
 
 occurence* create_occ();
 huffman* create_tree();

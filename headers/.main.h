@@ -1,7 +1,6 @@
 #ifndef MAIN
 #define MAIN
 
-#include "common/header.h"
-#include "common/struct.h"
+#include "prototype/dictionary_proto.h"
 
 #endif
