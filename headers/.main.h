@@ -1,6 +1,7 @@
 #ifndef MAIN
 #define MAIN
 
-#include "prototype/question_proto.h"
+#include "common/header.h"
+#include "common/struct.h"
 
 #endif
