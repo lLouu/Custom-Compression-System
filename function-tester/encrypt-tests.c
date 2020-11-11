@@ -5,7 +5,7 @@
 
 int main()
 {
-    encrypt(SOURCE, DICO, OUT);
+    encrypt_without_compression(SOURCE, DICO, OUT);
     
     printf("\nend\n");
     return 0;

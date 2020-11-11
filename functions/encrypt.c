@@ -99,3 +99,38 @@ void encrypt(char* input_path, char* dico_path, char* output_path)
     free_char(buffer);
     free_dico(d);
 }
+
+void put(char_SLL* buffer, char* output_path)
+{
+    FILE* output_file = fopen(output_path, "w");
+    
+    while(buffer != NULL)
+    {
+        fputc(buffer->data, output_file);
+        buffer = buffer->next;
+    }
+
+    fclose(output_file);
+}
+
+void encrypt_without_compression(char* input_path, char* dico_path, char* output_path)
+{
+    dico* d = compute_dico(input_path, dico_path);
+
+    FILE* input_file = fopen(input_path, "r");
+    char c = fgetc(input_file);
+    char_SLL* buffer = NULL;
+    while(c != EOF)
+    {
+        printf("%c",c);
+        char_SLL* temp = get_code(c, d);
+        char_add(&buffer, temp);
+        c = fgetc(input_file);
+    }
+    fclose(input_file);
+
+    put(buffer, output_path);
+
+    free_char(buffer);
+    free_dico(d);
+}
