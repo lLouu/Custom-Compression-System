@@ -96,5 +96,6 @@ void encrypt(char* input_path, char* dico_path, char* output_path)
 
     compress(buffer, output_path);
 
+    free_char(buffer);
     free_dico(d);
 }
