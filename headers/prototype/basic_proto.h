@@ -19,4 +19,6 @@ void free_list(node_list* n);
 void free_char(char_SLL* c);
 void free_dico(dico* d);
 
+#else
+#error "repeted call of basic_proto.h"
 #endif
