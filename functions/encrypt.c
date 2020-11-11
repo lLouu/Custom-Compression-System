@@ -55,12 +55,12 @@ void compress(char_SLL* buffer, char* output_path)
 {
     FILE* output_file = fopen(output_path, "w");
 
-    fputc(size(buffer)%8, output_file);
+    fputc(size(buffer)%CODE_BASE, output_file);
 
     while(buffer != NULL)
     {
         char c = 0;
-        for(int i = 7; i>=0; i--)
+        for(int i = CODE_BASE-1; i>=0; i--)
         {
             if(buffer != NULL)
             {
@@ -87,7 +87,6 @@ void encrypt(char* input_path, char* dico_path, char* output_path)
     char_SLL* buffer = NULL;
     while(c != EOF)
     {
-        printf("%c",c);
         char_SLL* temp = get_code(c, d);
         char_add(&buffer, temp);
         c = fgetc(input_file);
@@ -122,7 +121,6 @@ void encrypt_without_compression(char* input_path, char* dico_path, char* output
     char_SLL* buffer = NULL;
     while(c != EOF)
     {
-        printf("%c",c);
         char_SLL* temp = get_code(c, d);
         char_add(&buffer, temp);
         c = fgetc(input_file);

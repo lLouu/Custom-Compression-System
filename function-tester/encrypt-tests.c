@@ -6,6 +6,8 @@
 int main()
 {
     encrypt_without_compression(SOURCE, DICO, OUT);
+    system("pause");
+    encrypt(SOURCE, DICO, OUT);
     
     printf("\nend\n");
     return 0;

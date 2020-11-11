@@ -1,5 +1,5 @@
-#ifndef D_PROTO
-#define D_PROTO
+#ifndef DI_PROTO
+#define DI_PROTO
 
 #include "basic_proto.h"
 
