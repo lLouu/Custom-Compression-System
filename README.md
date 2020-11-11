@@ -10,11 +10,11 @@ This project has as the main goal to be able to compress any files by using huff
 
 
 ## Table of contents
-[Specifications](#Specifications)
-
 [Technologies](#Technologies)
 
 [Content](#Content)
+
+[Specifications](#Specifications)
 
 [Project-Status](#Project-Status)
 
