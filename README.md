@@ -11,10 +11,15 @@ This project has as the main goal to be able to compress any files by using huff
 
 ## Table of contents
 [Specifications](#Specifications)
+
 [Technologies](#Technologies)
+
 [Content](#Content)
+
 [Project-Status](#Project-Status)
+
 [Change-Log](#Change-Log)
+
 [Sources](#Sources)
 
 
@@ -24,6 +29,7 @@ This project has as the main goal to be able to compress any files by using huff
 
 ### Technologies
 Language : C
+
 Environement : Visual Studio Code
 
 
@@ -31,24 +37,31 @@ Environement : Visual Studio Code
 
 ### Content
 
+
 #### basic_proto.h
  - Create and free functions for each structures
  - Size function for the char SLL
  - Copy function for the char SLL
 
+
 #### tree_proto.h
  - Balance function for the dictionary
+
 
 #### dictionnary_proto.h
  - Register function of a dictionary in a file
  - Compute function of a dictionnary generated with a file
 
+
 #### encrypt_proto.h
  - Encrypt function of a file, making a dictionnary and a compressed file
  - Encrypt function of a file, making a dictionnary and a binary sequence file
 
+
 #### decrypt_proto.h
  - Decrypt function of a file depending on a dictionary file, making a decompress file
+
+
 
 
 
@@ -59,26 +72,44 @@ Be free, be happy (A day will come when you will not be able to)
 
 
 
+
+
 ### Project-Status
 [Version](#Change-Log) - [0.1.7](#V-0.1.7)
+
 Size - 141 Ko
+
 Current Dev - [@lLouu](https://github.com/lLouu)
 
+
+
 Done Tasks -
+
 Basics | by [@lLouu](https://github.com/lLouu)
+
 Debug of Basics | by [@lLouu](https://github.com/lLouu)
+
 Structure Optimisation | by [@lLouu](https://github.com/lLouu)
+
 Functions compatibility | by [@lLouu](https://github.com/lLouu)
+
 Functions Debug | by [@lLouu](https://github.com/lLouu)
+
 Basics Doccumentations | by [@lLouu](https://github.com/lLouu)
 
+
+
 Current Task.s -
+
 Errors and safety
 
 
 
 
+
+
 ### Change-Log
+
 
 #### V-0.1.7
  - Documentation of logged functions in basic_proto.h
@@ -113,12 +144,14 @@ Errors and safety
  - Documentation of CODE_BASE
  - Documentation of the README.md file
 
+
 #### V-0.1.6
  - Deletion of duplicata function in encrypt.c
  - Move of copy and size functions from dictionary.c and encrypt.c to basic.c
  - log of copy and size in basic_proto.h
  - Deletion of <sting.h>
  - Move of <math.h> from header.h to encrypt.h
+
 
 #### V-0.1.5
  - Creation of decrypt.c ; decrypt.h ; decrypt_proto.h
@@ -131,12 +164,14 @@ Errors and safety
  - Creation of the CODE_BASE constant
  - Debug file decrypt-tests.c
 
+
 #### V-0.1.4
  - line modification in dictionary.c (debug balance of dictionary)
  - Add a free_char in encrypt.c
  - Create functions in encrypt.c
     - put
     - encrypt_without_compression (log in encrypt_proto.h)
+
 
 #### V-0.1.3
  - Add of <math.h>
@@ -149,6 +184,7 @@ Errors and safety
     - compress
     - encrypt (log in encrypt_proto.h)
  - Debug file encrypt-tests.c
+
 
 #### V-0.1.2
  - Creation of dicitonary.c ; dicitonary.h ; dicitonary_proto.h
@@ -175,6 +211,7 @@ Errors and safety
  - Creation of .file.h
  - Debug file dico-tests.c
 
+
 #### V-0.1.1
  - Add structure to struct.h
     - occurence_tree
@@ -195,6 +232,7 @@ Errors and safety
     - free_char
     - free_dico
 
+
 #### V-0.1.0
  - Move of all V-0.0.* to 'old'
  - Recreate
@@ -202,11 +240,13 @@ Errors and safety
     - header.h
     - struct.h
 
+
 #### V-0.0.7
  - New functions in question.c
     - recover_tree
     - decrypt
  - Debug file Part-2-5.c
+
 
 #### V-0.0.6
  - Name modification of create_dico function to register_dico function
@@ -224,10 +264,12 @@ Errors and safety
     - compact_bin_file
  - Debug file Part 2-4.c
 
+
 #### V-0.0.5
  - Add of <string.h>
  - Creation of create_dico function in question.c
  - Debug file part-2-3.c
+
 
 #### V-0.0.4
  - Creation of new structures in struct.h
@@ -247,6 +289,7 @@ Errors and safety
  - Modification of Debug file Part-2-1.c
  - Debug file Part-2-2.c
 
+
 #### V-0.0.3
  - Creation of new structures in struct.h
     - occurence_list
@@ -258,11 +301,13 @@ Errors and safety
     - free_occ
  - Debug file Part-2-1.c
 
+
 #### V-0.0.2
  - Creation of new functions in question.c
     - translate_to_bin
     - count
  - Debug file Part-1.c
+
 
 #### V-0.0.1
  - Creation of the files
@@ -282,5 +327,8 @@ Errors and safety
 
 
 ### Sources
+
+
 [project guideline](https://docs.google.com/document/d/1-OwioEHwlS8xMncAjhKpWuEQuIQI_XdPzkiuomAsaJA/edit)
+
 [huffman tree](https://en.wikipedia.org/wiki/Huffman_coding)
