@@ -1,11 +1,9 @@
 #include ".file.h"
-#include "../headers/.main.h"
+#include "../headers/prototype/dictionary_proto.h"
 
 int main()
 {
-    dico* d = compute_dico(SOURCE, OUT);
-
-    printf("%c\n", d->data);
+    dico* d = compute_dico(SOURCE, DICO);
 
     free_dico(d);
     

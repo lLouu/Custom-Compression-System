@@ -1,6 +1,6 @@
 #ifndef MAIN
 #define MAIN
 
-#include "prototype/dictionary_proto.h"
+#include "prototype/encrypt_proto.h"
 
 #endif
