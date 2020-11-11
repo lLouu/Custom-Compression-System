@@ -114,23 +114,6 @@ void display(dico* d)
     }
 }
 
-char_SLL* copy(char_SLL* original)
-{
-    if(original == NULL)
-    {
-        return NULL;
-    }
-    char_SLL* scan = original->next, *ret = create_char(), *buffer = ret;
-    ret->data = original->data;
-    while(scan != NULL)
-    {
-        buffer->next = create_char();
-        buffer = buffer->next;
-        buffer->data = scan->data;
-        scan = scan->next;
-    }
-    return ret;
-}
 dico* merge(dico* a, dico* b)
 {
     if(a == NULL)

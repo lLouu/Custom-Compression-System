@@ -1,7 +1,5 @@
 #include "../headers/decrypt.h"
 
-int size(char_SLL* c);
-
 char_SLL* getcode(char* input_path)
 {
     FILE* input_file = fopen(input_path, "r");

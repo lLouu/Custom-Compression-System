@@ -52,6 +52,24 @@ dico* create_dico()
     return ret;
 }
 
+int size(char_SLL* c)
+{
+    if(c == NULL){return 0;}
+    return 1 + size(c->next);
+}
+char_SLL* copy(char_SLL* original)
+{
+    if(original != NULL)
+    {
+        char_SLL* cpy = create_char();
+        cpy->data = original->data;
+        cpy->next = copy(original->next);
+
+        return cpy;
+    }
+    return NULL;
+}
+
 void free_occ(occurence* o)
 {
     if(o != NULL)

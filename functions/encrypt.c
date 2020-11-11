@@ -1,24 +1,5 @@
 #include "../headers/encrypt.h"
 
-char_SLL* duplicata(char_SLL* original)
-{
-    if(original == NULL){return NULL;}
-
-    char_SLL* dupli = create_char(), *scan = dupli;
-
-    while(original != NULL)
-    {
-        scan->next = create_char();
-        scan = scan->next;
-        scan->data = original->data;
-        original = original->next;
-    }
-
-    scan = dupli->next;
-    free(dupli);
-    return scan;
-}
-
 char_SLL* get_code(char c, dico* d)
 {
     if(d == NULL)
@@ -27,7 +8,7 @@ char_SLL* get_code(char c, dico* d)
     }
     if(c == d->data)
     {
-        return duplicata(d->code);
+        return copy(d->code);
     }
     if(c < d->data)
     {
@@ -43,12 +24,6 @@ void char_add(char_SLL** buffer, char_SLL* add)
         buffer = &(*buffer)->next;
     }
     *buffer = add;
-}
-
-int size(char_SLL* c)
-{
-    if(c == NULL){return 0;}
-    return 1 + size(c->next);
 }
 
 void compress(char_SLL* buffer, char* output_path)
