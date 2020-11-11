@@ -203,7 +203,6 @@ dico* tree_to_dico(huffman* tree, char_SLL* buffer)
         }
 
         dico* ret = merge(zero, one);
-        trees_balance_BST(&ret);
         return ret;
     }
     return NULL;
@@ -237,6 +236,7 @@ dico* compute_dico(char* input_path, char* output_path)
     huffman* tree = occ_to_tree(occ);
     char_SLL* buffer = NULL;
     dico* ret = tree_to_dico(tree, buffer);
+    trees_balance_BST(&ret);
     free_tree(tree);
 
     FILE* output_file = fopen(output_path, "w");
