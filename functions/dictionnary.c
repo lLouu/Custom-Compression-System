@@ -1,7 +1,9 @@
 #include "../headers/dictionary.h"
 
-void add_to_occ(char c, occurence** list_ptr)
+void add_to_occ(const char c, occurence** list_ptr)
 {
+    if(list_ptr == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 1);return;}
+
     if(*list_ptr == NULL)
     {
         *list_ptr = create_occ();
@@ -26,9 +28,10 @@ void add_to_occ(char c, occurence** list_ptr)
         }
     }
 }
-occurence* read_occ(char* target)
+occurence* read_occ(const char* target)
 {
     FILE* target_file = fopen(target, "r");
+    if(target_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 1);return NULL;}
     occurence* ret = NULL;
 
     char c = fgetc(target_file);
@@ -44,6 +47,8 @@ occurence* read_occ(char* target)
 
 void occ_to_node(occurence* occ, node_list** buffer)
 {
+    if(buffer == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 2);return;}
+    
     if(occ != NULL)
     {
         node_list *ret = create_list();
@@ -66,6 +71,8 @@ void occ_to_node(occurence* occ, node_list** buffer)
 }
 void compute_tree(node_list** l)
 {
+    if(l == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 3);return;}
+    
     if(*l != NULL && (*l)->next != NULL)
     {
         node_list* add = create_list();
@@ -102,7 +109,7 @@ huffman* occ_to_tree(occurence* occ)
     return ret;
 }
 
-void display(dico* d)
+void display(const dico* d)
 {
     if(d != NULL)
     {
@@ -190,11 +197,13 @@ dico* tree_to_dico(huffman* tree, char_SLL* buffer)
     }
     return NULL;
 }
-void register_dico(FILE* output_file, dico* d)
+void register_dico(FILE* output_file, const dico* d)
 {
+    if(output_file == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 4);return;}
+    
     if(d != NULL)
     {
-        char_SLL* scan = d->code;
+        const char_SLL* scan = d->code;
         while(scan != NULL)
         {
             fputc(scan->data, output_file);
@@ -213,7 +222,7 @@ void register_dico(FILE* output_file, dico* d)
 }
 
 
-dico* compute_dico(char* input_path, char* output_path)
+dico* compute_dico(const char* input_path, const char* output_path)
 {
     occurence* occ = read_occ(input_path);
     huffman* tree = occ_to_tree(occ);
@@ -223,6 +232,7 @@ dico* compute_dico(char* input_path, char* output_path)
     free_tree(tree);
 
     FILE* output_file = fopen(output_path, "w");
+    if(output_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 2);return NULL;}
     register_dico(output_file, ret);
     fclose(output_file);
 

@@ -13,14 +13,14 @@
  * @param d Copy parameter - The dictionary to register
  * @return No return
  */
-void register_dico(FILE* output_file, dico* d);
+void register_dico(FILE* output_file, const dico* d);
 /* Computation function of a dictionary
  * 
  * @param input_path Copied parameter - The path to the file to read to make the corresponding dictionary
  * @param output_path Copied parameter - The path were the dictionary registration file has to be created
  * @return The dictionary computed
  */
-dico* compute_dico(char* input_path, char* output_path);
+dico* compute_dico(const char* input_path, const char* output_path);
 
 #else
 #error "repeted call of dictionary_proto.h"

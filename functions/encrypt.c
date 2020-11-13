@@ -1,6 +1,6 @@
 #include "../headers/encrypt.h"
 
-char_SLL* get_code(char c, dico* d)
+char_SLL* get_code(const char c, const dico* d)
 {
     if(d == NULL)
     {
@@ -26,11 +26,14 @@ void char_add(char_SLL** buffer, char_SLL* add)
     *buffer = add;
 }
 
-void compress(char_SLL* buffer, char* output_path)
+void compress(const char_SLL* buffer, const char* output_path)
 {
     FILE* output_file = fopen(output_path, "w");
+    if(output_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 1);return;}
 
-    fputc(size(buffer)%CODE_BASE, output_file);
+    const int size = secure_size(buffer);
+    if(size == -1){error(SLL_LOOP_ERROR, FILE_WEIGHT, FILE_ID, 1);return;}
+    fputc(size%CODE_BASE, output_file);
 
     while(buffer != NULL)
     {
@@ -53,11 +56,13 @@ void compress(char_SLL* buffer, char* output_path)
     fclose(output_file);
 }
 
-void encrypt(char* input_path, char* dico_path, char* output_path)
+void encrypt(const char* input_path, const char* dico_path, const char* output_path)
 {
+    FILE* input_file = fopen(input_path, "r");
+    if(input_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 2);return;}
+    
     dico* d = compute_dico(input_path, dico_path);
 
-    FILE* input_file = fopen(input_path, "r");
     char c = fgetc(input_file);
     char_SLL* buffer = NULL;
     while(c != EOF)
@@ -77,6 +82,7 @@ void encrypt(char* input_path, char* dico_path, char* output_path)
 void put(char_SLL* buffer, char* output_path)
 {
     FILE* output_file = fopen(output_path, "w");
+    if(output_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 3);return;}
     
     while(buffer != NULL)
     {
@@ -92,6 +98,7 @@ void encrypt_without_compression(char* input_path, char* dico_path, char* output
     dico* d = compute_dico(input_path, dico_path);
 
     FILE* input_file = fopen(input_path, "r");
+    if(input_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 4);return;}
     char c = fgetc(input_file);
     char_SLL* buffer = NULL;
     while(c != EOF)

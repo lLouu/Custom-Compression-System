@@ -8,7 +8,7 @@
  * @param output_path Copy parameter - the string of the path of the output to create
  * @return No return
  */
-void encrypt(char* input_path, char* dico_path, char* output_path);
+void encrypt(const char* input_path, const char* dico_path, const char* output_path);
 /* Encrypt function without compression 
  *
  * This function gives a readible file as result, if analysis is needed
@@ -18,7 +18,7 @@ void encrypt(char* input_path, char* dico_path, char* output_path);
  * @param output_path Copy parameter - the string of the path of the output to create
  * @return No return
  */
-void encrypt_without_compression(char* input_path, char* dico_path, char* output_path);
+void encrypt_without_compression(const char* input_path, const char* dico_path, const char* output_path);
 
 #else
 #error "repeted call of encrypt_proto.h"
