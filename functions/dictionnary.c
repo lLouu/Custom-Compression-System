@@ -228,7 +228,7 @@ dico* compute_dico(const char* input_path, const char* output_path)
     huffman* tree = occ_to_tree(occ);
     char_SLL* buffer = NULL;
     dico* ret = tree_to_dico(tree, buffer);
-    trees_balance_BST(&ret);
+    balance_BST_all_left(&ret);
     free_tree(tree);
 
     FILE* output_file = fopen(output_path, "w");

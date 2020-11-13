@@ -5,10 +5,10 @@
 
 /* Balance function of a tree
  * 
- * @param tree Changed parameter - The pointer to the tree to balance
+ * @param tree Changed parameter - The pointer to the sorted list (all left tree) to balance as an AVL
  * @return No return
  */
-void trees_balance_BST(dico** tree);
+void balance_BST_all_left(dico** tree);
 
 #else
 #error "repeted call of tree_proto.h"
