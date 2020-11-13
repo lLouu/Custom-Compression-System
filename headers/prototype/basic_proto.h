@@ -3,6 +3,7 @@
 
 #include "../common/header.h"
 #include "../common/struct.h"
+#include "error_proto.h"
 
 /* Create Function of occuence
  *

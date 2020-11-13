@@ -14,6 +14,12 @@
  */
 #define CODE_BASE 7
 
+
+#define SLL_LOOP_ERROR 1
+#define FILE_NOT_FOUD 2
+#define CORRUPTION_ERROR 3
+#define INVALID_INPUT 4
+
 #else
 #error "repeted call of header.h"
 #endif
