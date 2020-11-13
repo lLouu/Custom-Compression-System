@@ -5,10 +5,6 @@ This repository is about a first-application-project, inspired by a class projec
 This project has as the main goal to be able to compress any files by using huffman's tree and C language.
 
 
-
-
-
-
 ## Table of contents
 [Technologies](#Technologies)
 
@@ -23,16 +19,10 @@ This project has as the main goal to be able to compress any files by using huff
 [Sources](#Sources)
 
 
-
-
-
-
 ### Technologies
 Language : C
 
 Environement : Visual Studio Code
-
-
 
 
 ### Content
@@ -62,25 +52,16 @@ Environement : Visual Studio Code
  - Decrypt function of a file depending on a dictionary file, making a decompress file
 
 
-
-
-
-
 ### Specifications
 Be free, be happy (A day will come when you will not be able to)
 
 
-
-
-
-
 ### Project-Status
-[Version](#Change-Log) - [0.1.7](#V-0.1.7)
+[Version](#Change-Log) - 0.1.9
 
-Size - 141 Ko
+Size - 174 Ko
 
 Current Dev - [@lLouu](https://github.com/lLouu)
-
 
 
 Done Tasks -
@@ -97,18 +78,39 @@ Functions Debug | by [@lLouu](https://github.com/lLouu)
 
 Basics Doccumentations | by [@lLouu](https://github.com/lLouu)
 
+Errors and safety | by [@lLouu](https://github.com/lLouu)
 
 
 Current Task.s -
 
-Errors and safety
-
-
-
-
+Optimisation
 
 
 ### Change-Log
+
+
+#### V-0.1.9
+ - unlog of unsecurized function size from basic_proto.h
+ - creation of function in basic_functions.c
+   - iscircular
+   - secure_size (log in basic_proto.h)
+ - replacement of size function usage by secure_size function in encrypt.c and decrypt.c
+ - usage of error function in dicitonnary.c, encrypt.c and decrypt.c
+ - explicitation of constants in each file
+ - update of the change log in the README file
+
+
+#### V-0.1.8
+ - Creation of error.c ; error.h ; error_proto.h
+ - definition of FILE_WEIGHT and FILE_ID two constant depending on the file used
+ - definition of SLL_LOOP_ERROR, FILE_NOT_FOUND, CORRUPTION ERROR, INVALID_INPUT as common error ids
+ - definition of <weight>_<id> in error.h as the ensemble of all file depending on their weight and id
+ - definition of SLL_LOOP_MESSAGE, FILE_NOT_FOUND_MESSAGE, CORRUPTION_MESSAGE, and INVALID_INPUT_MESSAGE in error.h as information message for each corresponding errors.
+ - definition of UNKNOWN_FILE and UNKNOWN_ERROR in error.h as return for an undeclared file or error.
+ - creation of functions in error.c :
+   - location
+   - info
+   - error (log in error_proto.h)
 
 
 #### V-0.1.7
@@ -322,8 +324,6 @@ Errors and safety
     - struct.h
     - main.c ; .main.h
     - question.c ; question_prototype.h ; question.h
-
-
 
 
 ### Sources
