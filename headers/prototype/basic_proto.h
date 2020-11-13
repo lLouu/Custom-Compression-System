@@ -31,19 +31,6 @@ char_SLL* create_char();
  */
 dico* create_dico();
 
-/* Call function - Size of a char_SLL
- *
- * @param c Copy parameter - The start of the string to give lenght
- * @return The size of c
- */
-int size(char_SLL* c);
-/* Call function - Copy of a char_SLL
- *
- * @param original Copy parameter - The original SLL to copy 
- * @return The copy of original
- */
-char_SLL* copy(char_SLL* original);
-
 /* Free Function of occuence
  *
  * @param o Changed parameter - The occurence to free
@@ -74,6 +61,19 @@ void free_char(char_SLL* c);
  * @return No return
  */
 void free_dico(dico* d);
+
+/* Call function - Size of a char_SLL
+ *
+ * @param c Copy parameter - The start of the string to give lenght
+ * @return The size of c
+ */
+int secure_size(const char_SLL* c);
+/* Call function - Copy of a char_SLL
+ *
+ * @param original Copy parameter - The original SLL to copy 
+ * @return The copy of original
+ */
+char_SLL* copy(const char_SLL* original);
 
 #else
 #error "repeted call of basic_proto.h"

@@ -52,24 +52,6 @@ dico* create_dico()
     return ret;
 }
 
-int size(char_SLL* c)
-{
-    if(c == NULL){return 0;}
-    return 1 + size(c->next);
-}
-char_SLL* copy(char_SLL* original)
-{
-    if(original != NULL)
-    {
-        char_SLL* cpy = create_char();
-        cpy->data = original->data;
-        cpy->next = copy(original->next);
-
-        return cpy;
-    }
-    return NULL;
-}
-
 void free_occ(occurence* o)
 {
     if(o != NULL)
@@ -114,4 +96,46 @@ void free_dico(dico* d)
         free_char(d->code);
         free(d);
     }
+}
+
+char_SLL* copy(const char_SLL* original)
+{
+    if(original != NULL)
+    {
+        char_SLL* cpy = create_char();
+        cpy->data = original->data;
+        cpy->next = copy(original->next);
+
+        return cpy;
+    }
+    return NULL;
+}
+int size(const char_SLL* c)
+{
+    if(c == NULL){return 0;}
+    return 1 + size(c->next);
+}
+int iscircular(char_SLL* c)
+{
+    if(c == NULL || c->next == NULL || c->next->next == NULL)
+    {
+        return 0;
+    }
+    if(c->next == c->next->next)
+    {
+        return 1;
+    }
+    c->next->next = c->next->next->next; //delete the cycle list
+    c->next = c->next->next; //delete the line list
+    return iscircular(c);
+}
+int secure_size(const char_SLL* c)
+{
+    char_SLL* temp = copy(c);
+    if(iscircular(temp))
+    {
+        return -1;
+    }
+    free_char(temp);
+    return size(c);
 }
