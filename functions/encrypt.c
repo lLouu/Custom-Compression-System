@@ -2,10 +2,8 @@
 
 char_SLL* get_code(const char c, const dico* d)
 {
-    if(d == NULL)
-    {
-        return NULL;
-    }
+    if(d == NULL){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 1);return NULL;}
+    
     if(c == d->data)
     {
         return copy(d->code);
@@ -56,12 +54,12 @@ void compress(const char_SLL* buffer, const char* output_path)
     fclose(output_file);
 }
 
-void encrypt(const char* input_path, const char* dico_path, const char* output_path)
+void encrypt(const char* input_path, const char* tree_path, const char* output_path)
 {
     FILE* input_file = fopen(input_path, "r");
     if(input_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 2);return;}
     
-    dico* d = compute_dico(input_path, dico_path);
+    dico* d = compute_dico(input_path, tree_path);
 
     char c = fgetc(input_file);
     char_SLL* buffer = NULL;
@@ -93,9 +91,9 @@ void put(char_SLL* buffer, char* output_path)
     fclose(output_file);
 }
 
-void encrypt_without_compression(char* input_path, char* dico_path, char* output_path)
+void encrypt_without_compression(char* input_path, char* tree_path, char* output_path)
 {
-    dico* d = compute_dico(input_path, dico_path);
+    dico* d = compute_dico(input_path, tree_path);
 
     FILE* input_file = fopen(input_path, "r");
     if(input_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 4);return;}

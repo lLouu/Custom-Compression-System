@@ -220,7 +220,30 @@ void register_dico(FILE* output_file, const dico* d)
         fputc('.', output_file);
     }
 }
-
+void register_tree(FILE* output_file, const huffman* tree)
+{
+    if(output_file == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 5);return;}
+    
+    if(tree != NULL)
+    {
+        if(tree->data == 0)
+        {
+            fputc(':',output_file);
+            register_tree(output_file, tree->zero);
+            register_tree(output_file, tree->one);
+        }
+        else
+        {
+            fputc('#', output_file);
+            fputc(tree->data, output_file);
+        }
+    }
+    else
+    {
+        error(CORRUPTION_ERROR,FILE_WEIGHT,FILE_ID,1);
+        fputc('.', output_file);
+    }
+}
 
 dico* compute_dico(const char* input_path, const char* output_path)
 {
@@ -229,12 +252,13 @@ dico* compute_dico(const char* input_path, const char* output_path)
     char_SLL* buffer = NULL;
     dico* ret = tree_to_dico(tree, buffer);
     balance_BST_all_left(&ret);
-    free_tree(tree);
 
     FILE* output_file = fopen(output_path, "w");
     if(output_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 2);return NULL;}
-    register_dico(output_file, ret);
+    register_tree(output_file, tree);
     fclose(output_file);
+
+    free_tree(tree);
 
     return ret;
 }

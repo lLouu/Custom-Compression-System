@@ -81,10 +81,31 @@ dico* read_dico(FILE* dico_file)
     }
     return NULL;
 }
+huffman* read_tree(FILE* tree_file)
+{
+    if(tree_file == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 2);return NULL;}
+    char c = fgetc(tree_file);
+
+    if(c == '.' || c == EOF){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 4);return NULL;}
+
+    huffman* tree = create_tree();
+    if(c == ':')
+    {
+        tree->zero = read_tree(tree_file);
+        tree->one = read_tree(tree_file);
+    }
+    else
+    {
+        if(c != '#'){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 5);}
+        c = fgetc(tree_file);
+        tree->data = c;
+    }
+    return tree;
+}
 
 void dico_to_tree(dico* d, huffman** tree_ptr)
 {
-    if(tree_ptr == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 2);return;}
+    if(tree_ptr == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 3);return;}
     
     if(d != NULL)
     {
@@ -106,7 +127,7 @@ void dico_to_tree(dico* d, huffman** tree_ptr)
             }
             else
             {
-                if(buffer->data != '1'){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 4);}
+                if(buffer->data != '1'){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 5);}
                 
                 if(scan->one == NULL)
                 {
@@ -127,7 +148,7 @@ void dico_to_tree(dico* d, huffman** tree_ptr)
 
 void translate(const char_SLL* code, const huffman* tree, FILE* output_file)
 {
-    if(output_file == NULL || tree == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 3);return;}
+    if(output_file == NULL || tree == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 4);return;}
     
     const huffman* buffer = tree;
     const char_SLL* c = code;
@@ -140,13 +161,13 @@ void translate(const char_SLL* code, const huffman* tree, FILE* output_file)
         }
         else
         {
-            if(c->data != '1'){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 5);}
+            if(c->data != '1'){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 6);}
             buffer = buffer->one;
         }
         
         if(buffer->data != 0)
         {
-            if(buffer->data == EOF){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 6);}
+            if(buffer->data == EOF){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 7);}
             fputc(buffer->data, output_file);
             buffer = tree;
         }
@@ -154,17 +175,14 @@ void translate(const char_SLL* code, const huffman* tree, FILE* output_file)
     }
 }
 
-void decrypt(const char* input_path, const char* dico_path, const char* output_path)
+void decrypt(const char* input_path, const char* tree_path, const char* output_path)
 {
     char_SLL* code = getcode(input_path);
-    FILE* dico_file = fopen(dico_path, "r");
-    if(dico_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 2);free_char(code);return;}
-    dico* d = read_dico(dico_file);
-    fclose(dico_file);
+    FILE* tree_file = fopen(tree_path, "r");
+    if(tree_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 2);free_char(code);return;}
+    huffman* tree = read_tree(tree_file);
+    fclose(tree_file);
     
-    huffman* tree = NULL;
-    dico_to_tree(d, &tree);
-
     FILE* output_file = fopen(output_path, "w");
     if(output_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 3);free_char(code);free_tree(tree);return;}
     translate(code, tree, output_file);
