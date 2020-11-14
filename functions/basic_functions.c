@@ -117,7 +117,7 @@ int size(const char_SLL* c)
 }
 int iscircular(char_SLL* c)
 {
-    if(c == NULL || c->next == NULL || c->next->next == NULL)
+    if(c == NULL || c->next == NULL)
     {
         return 0;
     }
@@ -125,8 +125,10 @@ int iscircular(char_SLL* c)
     {
         return 1;
     }
-    c->next->next = c->next->next->next; //delete the cycle list
-    c->next = c->next->next; //delete the line list
+    c = c->next; //delete the line list
+    char_SLL* temp = c->next;
+    c->next = c->next->next; //delete the cycle list
+    free(temp);
     return iscircular(c);
 }
 int secure_size(const char_SLL* c)
