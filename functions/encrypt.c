@@ -15,13 +15,14 @@ char_SLL* get_code(const char c, const dico* d)
     return get_code(c, d->left);
 }
 
-void char_add(char_SLL** buffer, char_SLL* add)
+char_SLL** char_add(char_SLL** buffer, char_SLL* add)
 {
     while(*buffer != NULL)
     {
         buffer = &(*buffer)->next;
     }
     *buffer = add;
+    return buffer;
 }
 
 void compress(char_SLL* buffer, const char* output_path)
@@ -64,11 +65,11 @@ void encrypt(const char* input_path, const char* tree_path, const char* output_p
     dico* d = compute_dico(input_path, tree_path);
 
     char c = fgetc(input_file);
-    char_SLL* buffer = NULL;
+    char_SLL* buffer = NULL, **scan = &buffer;
     while(c != EOF)
     {
         char_SLL* temp = get_code(c, d);
-        char_add(&buffer, temp);
+        scan = char_add(scan, temp);
         c = fgetc(input_file);
     }
     fclose(input_file);
@@ -101,11 +102,11 @@ void encrypt_without_compression(char* input_path, char* tree_path, char* output
     FILE* input_file = fopen(input_path, "r");
     if(input_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 4);return;}
     char c = fgetc(input_file);
-    char_SLL* buffer = NULL;
+    char_SLL* buffer = NULL, **scan = &buffer;
     while(c != EOF)
     {
         char_SLL* temp = get_code(c, d);
-        char_add(&buffer, temp);
+        scan = char_add(scan, temp);
         c = fgetc(input_file);
     }
     fclose(input_file);

@@ -154,7 +154,7 @@ dico* merge(dico* a, dico* b)
     }
     return a;
 }
-dico* tree_to_dico(huffman* tree, char_SLL* buffer)
+dico* tree_to_dico(const huffman* tree, char_SLL* buffer)
 {
     if(tree != NULL)
     {
