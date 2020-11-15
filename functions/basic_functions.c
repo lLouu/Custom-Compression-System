@@ -117,7 +117,7 @@ int size(const char_SLL* c)
 }
 int iscircular(char_SLL* c)
 {
-    if(c == NULL || c->next == NULL)
+    if(c == NULL || c->next == NULL || c->next->next == NULL)
     {
         return 0;
     }
