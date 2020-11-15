@@ -57,9 +57,9 @@ Be free, be happy (A day will come when you will not be able to)
 
 
 ### Project-Status
-[Version](#Change-Log) - 0.1.9
+[Version](#Change-Log) - 0.1.10
 
-Size - 174 Ko
+Size - 219 Ko
 
 Current Dev - [@lLouu](https://github.com/lLouu)
 
@@ -80,13 +80,43 @@ Basics Doccumentations | by [@lLouu](https://github.com/lLouu)
 
 Errors and safety | by [@lLouu](https://github.com/lLouu)
 
+Optimisation | by [@lLouu](https://github.com/lLouu)
+
 
 Current Task.s -
 
-Optimisation
+Main cmd program
 
 
 ### Change-Log
+
+
+#### V-0.1.10
+ - deletion of all functions in tree.c
+ - creation of functions in tree.c
+   - lenght
+   - mid_of
+   - balance_BST_all_left (log in tree_proto.h)
+ - usage of balance_BST_all_left instead of trees_balance_BST
+ - Creation of function register_tree in dictionnary.c
+ - usage of register_tree instead of register_dico
+ - Creation of read_tree in decrypt.c
+ - Usage of read_tree instead of read_dico
+ - Optimisation of iscircular function in basic.c
+ - Optimisation in decrypt.c of
+   - getcode
+   - dico_to_tree
+   - translate
+   - decrypt
+ - Optimisation in dictionnary.c of
+   - register_tree
+   - tree_to_dico
+   - compute_dico
+ - Optimisation in encrypt.c of
+   - compress
+   - encrypt
+   - put
+   - encrypt_without_compression
 
 
 #### V-0.1.9
