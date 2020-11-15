@@ -24,7 +24,7 @@ void char_add(char_SLL** buffer, char_SLL* add)
     *buffer = add;
 }
 
-void compress(const char_SLL* buffer, const char* output_path)
+void compress(char_SLL* buffer, const char* output_path)
 {
     FILE* output_file = fopen(output_path, "w");
     if(output_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 1);return;}
@@ -44,7 +44,9 @@ void compress(const char_SLL* buffer, const char* output_path)
                 {
                     c += pow(2,i);
                 }
+                char_SLL* temp = buffer;
                 buffer = buffer->next;
+                free(temp);
             }
         }
 
@@ -73,7 +75,6 @@ void encrypt(const char* input_path, const char* tree_path, const char* output_p
 
     compress(buffer, output_path);
 
-    free_char(buffer);
     free_dico(d);
 }
 
@@ -85,7 +86,9 @@ void put(char_SLL* buffer, char* output_path)
     while(buffer != NULL)
     {
         fputc(buffer->data, output_file);
+        char_SLL* temp = buffer;
         buffer = buffer->next;
+        free(temp);
     }
 
     fclose(output_file);
@@ -109,6 +112,5 @@ void encrypt_without_compression(char* input_path, char* tree_path, char* output
 
     put(buffer, output_path);
 
-    free_char(buffer);
     free_dico(d);
 }
