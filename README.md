@@ -57,9 +57,9 @@ Be free, be happy (A day will come when you will not be able to)
 
 
 ### Project-Status
-[Version](#Change-Log) - 0.1.10
+[Version](#Change-Log) - 0.2.0
 
-Size - 219 Ko
+Size - 237 Ko
 
 Current Dev - [@lLouu](https://github.com/lLouu)
 
@@ -82,13 +82,30 @@ Errors and safety | by [@lLouu](https://github.com/lLouu)
 
 Optimisation | by [@lLouu](https://github.com/lLouu)
 
+Main cmd program | by [@lLouu](https://github.com/lLouu)
 
-Current Task.s -
-
-Main cmd program
 
 
 ### Change-Log
+
+
+#### V-0.2.0
+ - definition of main function in main.c
+ - definition of OPTION_PATH in .main.h
+
+
+#### V-0.1.11
+ - creation of option_stuct.h
+ - creation of option structure in option_struct.h
+ - creation of options.c, options.h, options_proto.h
+ - creation of function in option.c
+   - s_copy
+   - read_option_file (log in options_proto.h)
+   - free_option (log in options_proto.h)
+   - get_compress_path (log in options_proto.h)
+   - get_tree_path (log in options_proto.h)
+ - creation of option.txt
+ - definition of INCOMPLETE_OPTION in header.h and INCOMPLETE_OPTION_MESSAGE in error.h
 
 
 #### V-0.1.10
