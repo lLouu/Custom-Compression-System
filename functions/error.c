@@ -14,6 +14,9 @@ void location(const int file_weight, const int file_id)
         case 2:
             printf(ONE_TWO);
             break;
+        case 3:
+            printf(ONE_THREE);
+            break;
         default:
             printf(UNKNOWN_FILE);
             break;
@@ -79,7 +82,9 @@ void info(const int code_error)
     case INVALID_INPUT:
         printf(INVALID_INPUT_MESSAGE);
         break;
-
+    case INCOMPLETE_OPTION:
+        printf(INCOMPLETE_OPTION_MESSAGE);
+        break;
     default:
         printf(UNKNOWN_ERROR);
         break;

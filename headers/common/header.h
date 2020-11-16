@@ -19,6 +19,7 @@
 #define FILE_NOT_FOUD 2
 #define CORRUPTION_ERROR 3
 #define INVALID_INPUT 4
+#define INCOMPLETE_OPTION 5
 
 #else
 #error "repeted call of header.h"

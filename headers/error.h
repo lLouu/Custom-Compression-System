@@ -7,6 +7,7 @@
 
 #define ONE_ONE "basic.c"
 #define ONE_TWO "error.c"
+#define ONE_THREE "options.c"
 
 #define TWO_ONE "dictionary.c"
 #define TWO_TWO "tree.c"
@@ -25,6 +26,7 @@
 #define FILE_NOT_FOUND_MESSAGE "FILE NOT FOUND : One of the file has not been open successfully"
 #define CORRUPTION_MESSAGE "CORRUPTION ERROR : A sign of file corruption has been detected"
 #define INVALID_INPUT_MESSAGE "INVALID INPUT : One of the input given is not the one expected"
+#define INCOMPLETE_OPTION_MESSAGE "INCOMPLETE OPTION (Warning) : Your option file is incomplete. Default values are used"
 
 #define UNKNOWN_ERROR "Error not defined"
 
