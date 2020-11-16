@@ -30,16 +30,27 @@ Environement : Visual Studio Code
 
 #### basic_proto.h
  - Create and free functions for each structures
- - Size function for the char SLL
+ - Secure size function for the char SLL
  - Copy function for the char SLL
 
 
+#### options_proto.h
+ - read_option_file getting the option from an option file path
+ - free function of the option struct
+ - get_compress_path and get_free_path to combin the folder path and name of the compress or the tree file
+
+
+#### error_proto.h
+ - error function containing the error id, file weight, file id and specific error id
+
+
 #### tree_proto.h
- - Balance function for the dictionary
+ - Balance function for the dictionary when all its node are sorted at the left
 
 
 #### dictionnary_proto.h
  - Register function of a dictionary in a file
+ - Register function of a tree in a file
  - Compute function of a dictionnary generated with a file
 
 
