@@ -20,6 +20,7 @@
 #define CORRUPTION_ERROR 3
 #define INVALID_INPUT 4
 #define INCOMPLETE_OPTION 5
+#define TREE_CORUPTION 6
 
 #else
 #error "repeted call of header.h"

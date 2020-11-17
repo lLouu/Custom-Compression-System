@@ -186,6 +186,46 @@ dico* tree_to_dico(const huffman* tree, char_SLL* buffer)
     return NULL;
 }
 
+void check_all_one_node(huffman* tree)
+{
+    if(tree != NULL)
+    {
+        if(tree->data != 0)
+        {
+            error(TREE_CORUPTION, FILE_WEIGHT, FILE_ID, 1);
+        }
+        else
+        {
+            return check_all_one_node(tree->one);
+        }
+    }
+}
+void check_to_many_one(huffman* tree)
+{
+    if(tree != NULL)
+    {
+        int i = 1;
+        while(i < 8 && tree->one != NULL)
+        {
+            i++;
+            tree = tree->one;
+        }
+        if(tree->one != NULL)
+        {
+            error(TREE_CORUPTION, FILE_WEIGHT, FILE_ID, 2);
+        }
+        else
+        {
+            check_to_many_one(tree->zero);
+        }
+    }
+}
+void verify_corruption_tree(huffman* tree)
+{
+    check_all_one_node(tree);
+    check_to_many_one(tree);
+}
+
 
 void register_tree(FILE* output_file, huffman* tree)
 {
@@ -238,6 +278,7 @@ dico* compute_dico(const char* input_path, const char* output_path)
 {
     occurence* occ = read_occ(input_path);
     huffman* tree = occ_to_tree(occ);
+    if(CODE_BASE == 8){verify_corruption_tree(tree);}
     char_SLL* buffer = NULL;
     dico* ret = tree_to_dico(tree, buffer);
     balance_BST_all_left(&ret);

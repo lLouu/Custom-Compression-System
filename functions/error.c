@@ -85,6 +85,9 @@ void info(const int code_error)
     case INCOMPLETE_OPTION:
         printf(INCOMPLETE_OPTION_MESSAGE);
         break;
+    case TREE_CORUPTION:
+        printf(TREE_CORUPTION_MESSAGE);
+        break;
     default:
         printf(UNKNOWN_ERROR);
         break;
