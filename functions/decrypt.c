@@ -91,8 +91,7 @@ huffman* read_tree(FILE* tree_file)
     }
     else
     {
-        if(c != '#'){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 5);}
-        c = fgetc(tree_file);
+        if(c == '#'){c = fgetc(tree_file);}
         tree->data = c;
     }
     return tree;
