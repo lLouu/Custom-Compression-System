@@ -5,7 +5,7 @@
 
 int main()
 {
-    decrypt(OUT, DICO, SOURCE);
+    decrypt(OUT, SOURCE);
     
     printf("\nend\n");
     return 0;

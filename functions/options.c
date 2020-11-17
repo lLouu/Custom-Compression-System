@@ -50,17 +50,11 @@ void read_option_file(option* buffer, const char* option_path)
                 free(temp);
             }
             break;
-        case 's':
-            if(*temp != '\n'){buffer->source = temp;}
-            break;
-        case 'o':
-            if(*temp != '\n'){buffer->out = temp;}
-            break;
         case 'c':
-            if(*temp != '\n'){buffer->compress_file_name = temp;}
+            if(*temp != '\n'){buffer->compress = temp;}
             break;
-        case 't':
-            if(*temp != '\n'){buffer->tree_file_name = temp;}
+        case 'd':
+            if(*temp != '\n'){buffer->decompress = temp;}
             break;
         default:
             error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 1);
@@ -72,55 +66,7 @@ void read_option_file(option* buffer, const char* option_path)
 
 void free_option(option* o)
 {
-    free(o->source);
-    free(o->out);
-    free(o->compress_file_name);
-    free(o->tree_file_name);
+    free(o->compress);
+    free(o->decompress);
     free(o);
-}
-
-char* get_compress_path(option* o)
-{
-    char* folder = (o->mode?o->out:o->source), *name = o->compress_file_name;
-    int size = 0, size_buffer = 0;
-    while(folder[size_buffer] != '\0'){size_buffer++;}
-    while(name[size] != '\0'){size++;}
-    size += size_buffer+1;
-    char* ret = (char*)malloc((size+1)*sizeof(char));
-    int i;
-    for(i = 0; i<size_buffer; i++)
-    {
-        ret[i] = folder[i];
-    }
-    ret[size_buffer] = '/';
-    for(i = size_buffer + 1; i<size; i++)
-    {
-        ret[i] = name[i - size_buffer - 1];
-    }
-    ret[size] = '\0';
-
-    return ret;
-}
-
-char* get_tree_path(option* o)
-{
-    char* folder = (o->mode?o->out:o->source), *name = o->tree_file_name;
-    int size = 0, size_buffer = 0;
-    while(folder[size_buffer] != '\0'){size_buffer++;}
-    while(name[size] != '\0'){size++;}
-    size += size_buffer+1;
-    char* ret = (char*)malloc((size+1)*sizeof(char));
-    int i;
-    for(i = 0; i<size_buffer; i++)
-    {
-        ret[i] = folder[i];
-    }
-    ret[size_buffer] = '/';
-    for(i = size_buffer + 1; i<size; i++)
-    {
-        ret[i] = name[i - size_buffer - 1];
-    }
-    ret[size] = '\0';
-
-    return ret;
 }

@@ -109,18 +109,6 @@ huffman* occ_to_tree(occurence* occ)
     return ret;
 }
 
-void display(const dico* d)
-{
-    if(d != NULL)
-    {
-        printf("%c : [", d->data);
-        display(d->left);
-        printf(",");
-        display(d->right);
-        printf("] ");
-    }
-}
-
 dico* merge(dico* a, dico* b)
 {
     if(a == NULL)
@@ -197,29 +185,8 @@ dico* tree_to_dico(const huffman* tree, char_SLL* buffer)
     }
     return NULL;
 }
-void register_dico(FILE* output_file, const dico* d)
-{
-    if(output_file == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 4);return;}
-    
-    if(d != NULL)
-    {
-        const char_SLL* scan = d->code;
-        while(scan != NULL)
-        {
-            fputc(scan->data, output_file);
-            scan = scan->next;
-        }
-        fputc('-', output_file);
-        fputc(d->data, output_file);
 
-        register_dico(output_file, d->left);
-        register_dico(output_file, d->right);
-    }
-    else
-    {
-        fputc('.', output_file);
-    }
-}
+
 void register_tree(FILE* output_file, huffman* tree)
 {
     if(output_file == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 5);return;}
@@ -245,6 +212,26 @@ void register_tree(FILE* output_file, huffman* tree)
         error(CORRUPTION_ERROR,FILE_WEIGHT,FILE_ID,2);
         fputc('.', output_file);
     }
+}
+huffman* read_tree(FILE* tree_file)
+{
+    if(tree_file == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 2);return NULL;}
+    char c = fgetc(tree_file);
+
+    if(c == '.' || c == EOF){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 4);return NULL;}
+
+    huffman* tree = create_tree();
+    if(c == ':')
+    {
+        tree->zero = read_tree(tree_file);
+        tree->one = read_tree(tree_file);
+    }
+    else
+    {
+        if(c == '#'){c = fgetc(tree_file);}
+        tree->data = c;
+    }
+    return tree;
 }
 
 dico* compute_dico(const char* input_path, const char* output_path)
