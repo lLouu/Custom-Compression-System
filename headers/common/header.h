@@ -12,7 +12,7 @@
  * 
  * @see decrypt() - encrypt()
  */
-#define CODE_BASE 7
+#define CODE_BASE 8
 
 
 #define SLL_LOOP_ERROR 1

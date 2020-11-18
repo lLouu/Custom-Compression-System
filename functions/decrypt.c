@@ -112,7 +112,7 @@ void decrypt(const char* input_path, const char* output_path)
     FILE* output_file = fopen(output_path, "w");
     if(output_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 2);return;}
 
-    FILE* input_file = fopen(input_path, "r");
+    FILE* input_file = fopen(input_path, "rb");
     if(input_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 3);fclose(output_file);return;}
     huffman* tree = read_tree(input_file);
     char_SLL* code = getcode(input_file);
