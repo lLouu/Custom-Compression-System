@@ -1,5 +1,4 @@
-mode : 1
-source : C:/Users/guerr/Documents/GitHub/custom-compression-system/file/source.txt
-out : C:/Users/guerr/Documents/GitHub/custom-compression-system/file
-compress_file_name : out.txt
-tree_file_name : tree.txt
+mode : 0
+security : 1
+decompress : C:/Users/guerr/Documents/GitHub/custom-compression-system/file/source.txt
+compress : C:/Users/guerr/Documents/GitHub/custom-compression-system/file/out.txt
