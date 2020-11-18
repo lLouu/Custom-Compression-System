@@ -16,11 +16,11 @@ char_SLL* getcode(FILE* input_file)
     {
         for(int i = CODE_BASE - 1; i>=0; i--)
         {
-            if(decalage == 0){buffer = &(*buffer)->next;}
-            else{decalage--;}
             *scan = create_char();
             (*scan)->data = ((c >> i) & 1)?'1':'0';
             scan = &(*scan)->next;
+            if(decalage == 0){buffer = &(*buffer)->next;}
+            else{decalage--;}
         }
         c = fgetc(input_file);
     }
