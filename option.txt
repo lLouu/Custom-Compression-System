@@ -1,3 +1,4 @@
-mode : 1
+mode : 0
+security : 1
 decompress : C:/Users/guerr/Documents/GitHub/custom-compression-system/file/source.txt
 compress : C:/Users/guerr/Documents/GitHub/custom-compression-system/file/out.txt

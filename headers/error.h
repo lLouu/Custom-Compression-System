@@ -27,7 +27,7 @@
 #define CORRUPTION_MESSAGE "CORRUPTION ERROR : A sign of file corruption has been detected"
 #define INVALID_INPUT_MESSAGE "INVALID INPUT : One of the input given is not the one expected"
 #define INCOMPLETE_OPTION_MESSAGE "INCOMPLETE OPTION (Warning) : Your option file is incomplete. Default values are used"
-#define TREE_CORUPTION_MESSAGE "TREE CORRUPTION (Warning) : The huffman tree is subject to allow file corruption. The compressed file could not be decompressable. Please take the secure version to be sure no problem will happend"
+#define TREE_CORUPTION_MESSAGE "TREE CORRUPTION (Warning) : The huffman tree is subject to allow file corruption. The compressed file could not be decompressable. Please take the secure version by modifying your options or by using a less-than-8-bits-compression to be sure no problem will happend"
 
 #define UNKNOWN_ERROR "Error not defined"
 

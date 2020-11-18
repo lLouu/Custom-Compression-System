@@ -109,6 +109,59 @@ huffman* occ_to_tree(occurence* occ)
     return ret;
 }
 
+void add_zero_to_all_one(huffman* tree)
+{
+    if(tree != NULL && tree->one != NULL)
+    {
+        if(tree->one->data != 0)
+        {
+            huffman* new_node = create_tree();
+            new_node->zero = tree->one;
+            tree->one = new_node;
+        }
+        else 
+        {
+            add_zero_to_all_one(tree->one);
+        }
+    }
+}
+void break_the_eight_consecutives(huffman* tree)
+{
+    if(tree != NULL)
+    {
+        int i = 0;
+        while(i < 6 && tree->one != NULL)
+        {
+            i++;
+            break_the_eight_consecutives(tree->zero);
+            tree = tree->one;
+        }
+        if(tree->one != NULL && tree->one->data == 0)
+        {
+            huffman* new_node = create_tree();
+            new_node->zero = tree->one;
+            tree->one = new_node;
+        }
+        break_the_eight_consecutives(tree->zero);
+        break_the_eight_consecutives(tree->one);
+    }
+}
+huffman* secure_occ_to_tree(occurence* occ)
+{
+    if(occ == NULL)
+    {
+        return NULL;
+    }
+    node_list* l = NULL;
+    occ_to_node(occ, &l);
+    compute_tree(&l);
+    huffman* ret = l->node;
+    free(l);
+    add_zero_to_all_one(ret);
+    break_the_eight_consecutives(ret);
+    return ret;
+}
+
 dico* merge(dico* a, dico* b)
 {
     if(a == NULL)
@@ -249,7 +302,6 @@ void register_tree(FILE* output_file, huffman* tree)
     }
     else
     {
-        error(CORRUPTION_ERROR,FILE_WEIGHT,FILE_ID,2);
         fputc('.', output_file);
     }
 }
@@ -258,7 +310,7 @@ huffman* read_tree(FILE* tree_file)
     if(tree_file == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 2);return NULL;}
     char c = fgetc(tree_file);
 
-    if(c == '.' || c == EOF){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 4);return NULL;}
+    if(c == '.' || c == EOF){return NULL;}
 
     huffman* tree = create_tree();
     if(c == ':')
@@ -274,11 +326,11 @@ huffman* read_tree(FILE* tree_file)
     return tree;
 }
 
-dico* compute_dico(const char* input_path, const char* output_path)
+dico* compute_dico(const char* input_path, const char* output_path, int security)
 {
     occurence* occ = read_occ(input_path);
-    huffman* tree = occ_to_tree(occ);
-    if(CODE_BASE == 8){verify_corruption_tree(tree);}
+    huffman* tree = security?secure_occ_to_tree(occ):occ_to_tree(occ);
+    if(CODE_BASE == 8 && !security){verify_corruption_tree(tree);}
     char_SLL* buffer = NULL;
     dico* ret = tree_to_dico(tree, buffer);
     balance_BST_all_left(&ret);

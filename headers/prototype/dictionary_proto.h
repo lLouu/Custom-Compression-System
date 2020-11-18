@@ -21,7 +21,7 @@ huffman* read_tree(FILE* tree_file);
  * @param output_path Copied parameter - The path were the tree registration file has to be created
  * @return The dictionary computed
  */
-dico* compute_dico(const char* input_path, const char* output_path);
+dico* compute_dico(const char* input_path, const char* output_path, int security);
 
 #else
 #error "repeted call of dictionary_proto.h"

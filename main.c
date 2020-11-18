@@ -1,4 +1,5 @@
 #include "headers/.main.h"
+#include <math.h>
 
 int main()
 {
@@ -7,7 +8,7 @@ int main()
 
     if(run->mode)
     {
-        encrypt(run->decompress, run->compress);
+        encrypt(run->decompress, run->compress, run->security);
     }
     else
     {
@@ -15,5 +16,6 @@ int main()
     }
     
     free_option(run);
+
     return 0;
 }

@@ -22,7 +22,7 @@ void read_option_file(option* buffer, const char* option_path)
     if(option_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 1);return;}
 
     char read[100];
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 4; i++)
     {
         fgets(read, 100, option_file);
         int count = 0;
@@ -55,6 +55,14 @@ void read_option_file(option* buffer, const char* option_path)
             break;
         case 'd':
             if(*temp != '\n'){buffer->decompress = temp;}
+            break;
+        case 's':
+            if(*temp != '\n')
+            {
+                if(*temp == '1' || *temp == 't'){buffer->security = 1;}
+                else{buffer->security = 0;}
+                free(temp);
+            }
             break;
         default:
             error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 1);

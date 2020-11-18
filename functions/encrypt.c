@@ -61,12 +61,12 @@ void compress(char_SLL* buffer, const char* output_path)
     fclose(output_file);
 }
 
-void encrypt(const char* input_path, const char* output_path)
+void encrypt(const char* input_path, const char* output_path, int security)
 {
     FILE* input_file = fopen(input_path, "r");
     if(input_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 2);return;}
     
-    dico* d = compute_dico(input_path, output_path);
+    dico* d = compute_dico(input_path, output_path, security);
 
     char c = fgetc(input_file);
     char_SLL* buffer = NULL, **scan = &buffer;
