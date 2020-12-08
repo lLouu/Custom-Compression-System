@@ -146,6 +146,35 @@ void break_the_eight_consecutives(huffman* tree)
         break_the_eight_consecutives(tree->one);
     }
 }
+void add_zero_when_n_one_end(huffman* tree, int n, int nb)
+{
+    if(tree == NULL){return;}
+    if(tree->one != NULL)
+    {
+        if(tree->one->data != 0 && n <= nb)
+        {
+            huffman* buffer = tree->one;
+            tree->one = create_tree();
+            tree->one->zero = buffer;
+        }
+        else
+        {
+            add_zero_when_n_one_end(tree->one, n, nb+1);
+        }
+    }
+    add_zero_when_n_one_end(tree->zero, n, 1);
+}
+void block_combinations(huffman* tree)
+{
+    huffman* scan = tree;
+    int count = 0;
+    while(scan->one != NULL)
+    {
+        scan = scan->one;
+        count++;
+    }
+    add_zero_when_n_one_end(tree, 8 - count, 1);
+}
 huffman* secure_occ_to_tree(occurence* occ)
 {
     if(occ == NULL)
@@ -159,6 +188,7 @@ huffman* secure_occ_to_tree(occurence* occ)
     free(l);
     add_zero_to_all_one(ret);
     break_the_eight_consecutives(ret);
+    block_combinations(ret);
     return ret;
 }
 

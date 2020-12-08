@@ -17,5 +17,7 @@ int main()
     
     free_option(run);
 
+    printf("\nend\n");
+
     return 0;
 }
