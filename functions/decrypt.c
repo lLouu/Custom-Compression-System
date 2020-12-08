@@ -5,6 +5,17 @@ char_SLL* getcode(FILE* input_file)
     if(input_file == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 1);return NULL;}
     
     char c = fgetc(input_file);
+    while(c != '\n' && c != EOF)
+    {
+        if(c == '#')
+        {
+            c = fgetc(input_file);
+            c = fgetc(input_file);
+        }
+        c = fgetc(input_file);
+    }
+
+    c = fgetc(input_file);
     if(c >= CODE_BASE || c < 0){c = 0;error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 1);}
     int decalage = (c == 0)?0:CODE_BASE - c;
     
@@ -111,15 +122,14 @@ void decrypt(const char* input_path, const char* output_path)
 {
     FILE* output_file = fopen(output_path, "w");
     if(output_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 2);return;}
-
-    FILE* input_file = fopen(input_path, "rb");
+    FILE* input_file = fopen(input_path, "r");
     if(input_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 3);fclose(output_file);return;}
     huffman* tree = read_tree(input_file);
+    fclose(input_file);
+    input_file = fopen(input_path, "rb");
     char_SLL* code = getcode(input_file);
     fclose(input_file);
-    
     translate(code, tree, output_file);
     fclose(output_file);
-
     free_tree(tree);
 }

@@ -43,6 +43,7 @@ void compress(char_container* content, const char* output_path)
     fclose(output_file);
     output_file = fopen(output_path, "w");
     register_tree(output_file, tree);
+    fputc('\n', output_file);
 
     const int size = content->size;
     fputc(size%CODE_BASE, output_file);

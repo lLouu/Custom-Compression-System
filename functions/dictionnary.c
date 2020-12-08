@@ -298,7 +298,7 @@ void register_tree(FILE* output_file, huffman* tree)
         }
         else
         {
-            if(tree->data == '.' || tree->data == ':' || tree->data == '#'){fputc('#', output_file);}
+            if(tree->data == '.' || tree->data == ':' || tree->data == '#' || tree->data == '\n'){fputc('#', output_file);}
             fputc(tree->data, output_file);
             if(tree->zero != NULL || tree->one != NULL){error(CORRUPTION_ERROR,FILE_WEIGHT,FILE_ID,1);free_tree(tree->one);free_tree(tree->zero);}
         }
