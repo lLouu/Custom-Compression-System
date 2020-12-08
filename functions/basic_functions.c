@@ -45,6 +45,7 @@ char_container* create_container()
     char_container* ret = (char_container*)malloc(sizeof(char_container));
 
     ret->content = NULL;
+    ret->last = NULL;
     ret->size = 0;
 
     return ret;
@@ -107,7 +108,7 @@ void free_dico(dico* d)
     {
         free_dico(d->right);
         free_dico(d->left);
-        free_char(d->code);
+        free_container(d->code);
         free(d);
     }
 }
@@ -128,30 +129,4 @@ int size(const char_SLL* c)
 {
     if(c == NULL){return 0;}
     return 1 + size(c->next);
-}
-int iscircular(char_SLL* c)
-{
-    if(c == NULL || c->next == NULL || c->next->next == NULL)
-    {
-        return 0;
-    }
-    if(c->next == c->next->next)
-    {
-        return 1;
-    }
-    c = c->next; //delete the line list
-    char_SLL* temp = c->next;
-    c->next = c->next->next; //delete the cycle list
-    free(temp);
-    return iscircular(c);
-}
-int secure_size(const char_SLL* c)
-{
-    char_SLL* temp = copy(c);
-    if(iscircular(temp))
-    {
-        return -1;
-    }
-    free_char(temp);
-    return size(c);
 }

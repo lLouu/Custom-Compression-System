@@ -44,7 +44,7 @@ void dico_to_tree(dico* d, huffman** tree_ptr)
             *tree_ptr = create_tree();
         }
         huffman* scan = *tree_ptr;
-        const char_SLL* buffer = d->code;
+        const char_SLL* buffer = d->code->content;
         while (buffer != NULL)
         {
             if(buffer->data == '0')

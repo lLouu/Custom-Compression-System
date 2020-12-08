@@ -70,6 +70,7 @@ void free_dico(dico* d);
  * @return The copy of original
  */
 char_SLL* copy(const char_SLL* original);
+int size(const char_SLL* c);
 
 #else
 #error "repeted call of basic_proto.h"

@@ -48,6 +48,7 @@ typedef struct char_SLL
 typedef struct char_container
 {
     char_SLL* content;
+    char_SLL* last;
     int size;
 }char_container;
 
