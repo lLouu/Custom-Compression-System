@@ -45,13 +45,19 @@ typedef struct char_SLL
     struct char_SLL* next;
 }char_SLL;
 
+typedef struct char_container
+{
+    char_SLL* content;
+    int size;
+}char_container;
+
 /// An Aplphabetical AVL tree of a dictionary
 typedef struct dico
 {
     /// The char stocked
     char data;
     /// Its corresponding Huffman code
-    char_SLL* code;
+    char_container* code;
     /// The right member (dico->right->data > dico->data)
     struct dico* right;
     /// The left member (dico->right->data < dico->data)

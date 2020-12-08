@@ -40,6 +40,15 @@ char_SLL* create_char()
 
     return ret;
 }
+char_container* create_container()
+{
+    char_container* ret = (char_container*)malloc(sizeof(char_container));
+
+    ret->content = NULL;
+    ret->size = 0;
+
+    return ret;
+}
 dico* create_dico()
 {
     dico* ret = (dico*)malloc(sizeof(dico));
@@ -86,6 +95,11 @@ void free_char(char_SLL* c)
         free_char(c->next);
         free(c);
     }
+}
+void free_container(char_container* c)
+{
+    free_char(c->content);
+    free(c);
 }
 void free_dico(dico* d)
 {

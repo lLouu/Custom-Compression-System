@@ -25,6 +25,7 @@ node_list* create_list();
  * @return An empty char node
  */
 char_SLL* create_char();
+char_container* create_container();
 /* Create Function of dictionary
  *
  * @return An empty dico node
@@ -55,6 +56,7 @@ void free_list(node_list* n);
  * @return No return
  */
 void free_char(char_SLL* c);
+void free_container(char_container* c);
 /* Free Function of a dictionary
  *
  * @param d Changed parameter - The dictionary to free
@@ -62,12 +64,6 @@ void free_char(char_SLL* c);
  */
 void free_dico(dico* d);
 
-/* Call function - Size of a char_SLL
- *
- * @param c Copy parameter - The start of the string to give lenght
- * @return The size of c
- */
-int secure_size(const char_SLL* c);
 /* Call function - Copy of a char_SLL
  *
  * @param original Copy parameter - The original SLL to copy 
