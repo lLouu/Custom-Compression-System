@@ -201,8 +201,12 @@ dico* tree_to_dico(const huffman* tree, char_SLL* buffer)
     {
         if(tree->data != 0)
         {
+            char_container* content = create_container();
+            content->content = copy(buffer);
+            content->size = size(buffer);
+            
             dico* ret = create_dico();
-            ret->code = copy(buffer);
+            ret->code = content;
             ret->data = tree->data;
             return ret;
         }
