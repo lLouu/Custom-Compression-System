@@ -1,5 +1,26 @@
 #include "../headers/dictionary.h"
 
+void show_SLL(char_SLL* c)
+{
+    if(c != NULL)
+    {
+        printf("%c", c->data);
+        show_SLL(c->next);
+    }
+}
+void show_dico(dico* d)
+{
+    if(d != NULL)
+    {
+        printf("%c : ", d->data);
+        show_SLL(d->code->content);
+        printf("\n");
+        show_dico(d->left);
+        show_dico(d->right);
+    }
+}
+
+
 void add_to_occ(const char c, occurence** list_ptr)
 {
     if(list_ptr == NULL){error(INVALID_INPUT, FILE_WEIGHT, FILE_ID, 1);return;}
@@ -225,15 +246,15 @@ dico* merge(dico* a, dico* b)
     }
     return a;
 }
-dico* tree_to_dico(const huffman* tree, char_SLL* buffer)
+dico* tree_to_dico(const huffman* tree, char_container* buffer)
 {
     if(tree != NULL)
     {
         if(tree->data != 0)
         {
             char_container* content = create_container();
-            content->content = copy(buffer);
-            content->size = size(buffer);
+            content->content = copy(buffer->content);
+            content->size = buffer->size;
             
             dico* ret = create_dico();
             ret->code = content;
@@ -244,7 +265,8 @@ dico* tree_to_dico(const huffman* tree, char_SLL* buffer)
         dico *zero, *one;
         if(buffer != NULL)
         {
-            char_SLL* scan = buffer;
+            char_SLL* scan = buffer->content;
+            buffer->size ++;
             while(scan->next != NULL)
             {
                 scan = scan->next;
@@ -256,15 +278,18 @@ dico* tree_to_dico(const huffman* tree, char_SLL* buffer)
             one = tree_to_dico(tree->one, buffer);
             free(scan->next);
             scan->next = NULL;
+            buffer->size --;
         }
         else
         {
-            buffer = create_char();
-            buffer->data = '0';
+            buffer = create_container();
+            buffer->size = 1;
+            buffer->content = create_char();
+            buffer->content->data = '0';
             zero = tree_to_dico(tree->zero, buffer);
-            buffer->data = '1';
+            buffer->content->data = '1';
             one = tree_to_dico(tree->one, buffer);
-            free(buffer);
+            free_container(buffer);
         }
 
         dico* ret = merge(zero, one);
@@ -360,14 +385,34 @@ huffman* read_tree(FILE* tree_file)
     return tree;
 }
 
+void verif_dico(dico* d, huffman* tree)
+{
+    if(d != NULL)
+    {
+        char_SLL* buffer = d->code->content;
+        huffman* scan = tree;
+        int breaking = 0;
+        while(buffer != NULL && !breaking)
+        {
+            if(buffer->data == '1'){scan = scan->one;}
+            else{scan = scan->zero;}
+            buffer = buffer->next;
+            if(scan == NULL){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 1); printf("%c not registered\n\n", d->data); breaking = 1;}
+        }
+        verif_dico(d->left, tree);
+        verif_dico(d->right, tree);
+    }
+}
+
 dico* compute_dico(const char* input_path, const char* output_path, int security)
 {
     occurence* occ = read_occ(input_path);
     huffman* tree = security?secure_occ_to_tree(occ):occ_to_tree(occ);
     if(CODE_BASE == 8 && !security){verify_corruption_tree(tree);}
-    char_SLL* buffer = NULL;
+    char_container* buffer = NULL;
     dico* ret = tree_to_dico(tree, buffer);
     balance_BST_all_left(&ret);
+    verif_dico(ret, tree);
 
     FILE* output_file = fopen(output_path, "w");
     if(output_file == NULL){error(FILE_NOT_FOUD, FILE_WEIGHT, FILE_ID, 2);return NULL;}

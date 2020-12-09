@@ -105,10 +105,11 @@ void translate(char_SLL* code, const huffman* tree, FILE* output_file)
             if(c->data != '1'){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 6);}
             buffer = buffer->one;
         }
+        if(buffer == NULL){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 7); buffer = tree;}
         
         if(buffer->data != 0)
         {
-            if(buffer->data == EOF){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 7);}
+            if(buffer->data == EOF){error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 8);}
             fputc(buffer->data, output_file);
             buffer = tree;
         }
