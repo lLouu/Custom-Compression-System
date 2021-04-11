@@ -17,12 +17,12 @@ char_SLL* getcode(FILE* input_file)
 
     c = fgetc(input_file);
     if(c >= CODE_BASE || c < 0){c = 0;error(CORRUPTION_ERROR, FILE_WEIGHT, FILE_ID, 1);}
-    int decalage = (c == 0)?0:CODE_BASE - c;
+    int decalage = CODE_BASE*EOF_to_EOF + (c == 0)?0:CODE_BASE - c;
     
     char_SLL** ret = (char_SLL**)malloc(sizeof(char_SLL*)), **scan = ret, **buffer = ret;
     *ret = NULL;
     c = fgetc(input_file);
-    int run = 5;
+    int run = EOF_to_EOF;
 
     while(run != 0)
     {
@@ -41,7 +41,7 @@ char_SLL* getcode(FILE* input_file)
         }
         else
         {
-            run = 5;
+            run = EOF_to_EOF;
         }
     }
     

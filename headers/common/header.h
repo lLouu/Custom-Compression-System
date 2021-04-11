@@ -13,6 +13,7 @@
  * @see decrypt() - encrypt()
  */
 #define CODE_BASE 8
+#define EOF_to_EOF 5
 
 
 #define SLL_LOOP_ERROR 1
