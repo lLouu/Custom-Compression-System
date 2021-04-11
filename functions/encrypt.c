@@ -67,7 +67,6 @@ void compress(char_container* content, const char* output_path)
 
         fputc(c, output_file);
     }
-    fputc(-1, output_file);
 
     fclose(output_file);
 }

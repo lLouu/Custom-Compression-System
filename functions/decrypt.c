@@ -22,8 +22,9 @@ char_SLL* getcode(FILE* input_file)
     char_SLL** ret = (char_SLL**)malloc(sizeof(char_SLL*)), **scan = ret, **buffer = ret;
     *ret = NULL;
     c = fgetc(input_file);
+    int run = 5;
 
-    while(c != EOF)
+    while(run != 0)
     {
         for(int i = CODE_BASE - 1; i>=0; i--)
         {
@@ -34,6 +35,14 @@ char_SLL* getcode(FILE* input_file)
             else{decalage--;}
         }
         c = fgetc(input_file);
+        if(c == -1)
+        {
+            run -= 1;
+        }
+        else
+        {
+            run = 5;
+        }
     }
     
     free_char(*buffer);
